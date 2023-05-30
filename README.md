@@ -1,10 +1,10 @@
-# Haunted House React Three Fiber
+# Minecraft React Three Fiber
 
 ![Screenshot 2022-09-20 184643](https://user-images.githubusercontent.com/24757322/191285710-df0ff834-c8df-4072-a428-e05b2b4476f2.jpg)
 
-🚀 Haunted house is built using Next.js and React Three Fiber
+🚀 Minecraft is built using Next.js and React Three Fiber
 
-🌌 Visit: [Haunted House](https://haunted-house-react-three.vercel.app) 
+🌌 Visit: [Minecraft](https://justkanye-minecraft.vercel.app) 
 
 ### Features
 
@@ -24,7 +24,7 @@ Developer experience first:
 - 🗂 VSCode configuration: Debug, Settings, Tasks and extension for PostCSS, ESLint, Prettier, TypeScript, Jest
 - 🤖 SEO metadata, JSON-LD and Open Graph tags with Next SEO
 - ⚙️ [Bundler Analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)
-- 🖱️ One click deployment with Vercel or Netlify (or manual deployment to any hosting services)
+<!-- - 🖱️ One click deployment with Vercel or Netlify (or manual deployment to any hosting services) -->
 - 🌈 Include a FREE minimalist theme
 - 💯 Maximize lighthouse score
 
@@ -43,7 +43,7 @@ Built-in feature from Next.js:
 Run the following command on your local environment:
 
 ```shell
-git clone --depth=1 https://github.com/exc1ut/haunted-house-react-three my-project-name
+git clone --depth=1 https://github.com/justkanye/minecraft-mini my-project-name
 cd my-project-name
 npm install
 ```
@@ -91,7 +91,7 @@ You can create an optimized production build with:
 npm run build-prod
 ```
 
-Now, your blog is ready to be deployed. All generated files are located at `out` folder, which you can deploy with any hosting service.
+Now, your app is ready to be deployed. All generated files are located at `out` folder, which you can deploy with any hosting service.
 
 ### Testing
 
@@ -101,13 +101,13 @@ All tests are colocated with the source code inside the same directory. So, it m
 
 Clone this repository on own GitHub account and deploy to Netlify:
 
-[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/ixartz/Next-js-Boilerplate)
+[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/justkanye/minecraft-mini)
 
 ### Deploy to Vercel
 
 Deploy this Next JS Boilerplate on Vercel in one click:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fixartz%2FNext-js-Boilerplate)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2justkanye%2Fminecraft-mini)
 
 ### VSCode information (optional)
 
