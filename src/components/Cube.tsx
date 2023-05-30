@@ -1,60 +1,96 @@
 import { useBox } from '@react-three/cannon';
+import type { ThreeEvent } from '@react-three/fiber';
 import { useLoader } from '@react-three/fiber';
-import type { FC } from 'react';
+import { useState } from 'react';
 import { TextureLoader } from 'three';
 
-import type { Cube as CUBE } from '@/types';
-import { CubeType } from '@/types';
+import { useStore } from '@/hooks';
+import { type Cube as CUBE } from '@/types';
+import { getTextureSrc } from '@/utils/helpers';
 
-const Cube: FC<Props> = ({ cube }) => {
+const CUBE_FACES = [...Array(6)];
+
+const Cube = ({ pos, texture }: CUBE) => {
   const [ref] = useBox(() => ({
     type: 'Static',
-    position: cube.pos,
+    position: pos,
   }));
+  const [hover, setHover] = useState<number>();
+  const [addCube, removeCube] = useStore((s) => [s.addCube, s.removeCube]);
 
-  const type = () => {
-    switch (cube.type) {
-      case CubeType.GRASS:
-        return 'grass';
+  const color = useLoader(TextureLoader, getTextureSrc(texture));
+  const ambient = useLoader(
+    TextureLoader,
+    getTextureSrc(texture, 'ambientOcclusion')
+  );
+  const normal = useLoader(TextureLoader, getTextureSrc(texture, 'normal'));
+  const roughness = useLoader(
+    TextureLoader,
+    getTextureSrc(texture, 'roughness')
+  );
 
-      case CubeType.WATER:
-        return 'door';
-
-      default:
-        return 'bricks';
+  const handleCubeClick = ({
+    stopPropagation,
+    faceIndex,
+    nativeEvent: { altKey },
+  }: ThreeEvent<MouseEvent>) => {
+    stopPropagation();
+    if (faceIndex) {
+      const clickedFace = Math.floor(faceIndex / 2);
+      const [x, y, z] = pos;
+      if (altKey) removeCube(x, y, z);
+      else
+        switch (clickedFace) {
+          case 0:
+            addCube(x + 1, y, z);
+            break;
+          case 1:
+            addCube(x - 1, y, z);
+            break;
+          case 2:
+            addCube(x, y + 1, z);
+            break;
+          case 3:
+            addCube(x, y - 1, z);
+            break;
+          case 4:
+            addCube(x, y, z + 1);
+            break;
+          case 5:
+            addCube(x, y, z - 1);
+            break;
+          default:
+            break;
+        }
     }
   };
 
-  const color = useLoader(TextureLoader, `/textures/${type()}/color.jpg`);
-  const ambient = useLoader(
-    TextureLoader,
-    `/textures/${type()}/ambientOcclusion.jpg`
-  );
-  const normal = useLoader(TextureLoader, `/textures/${type()}/normal.jpg`);
-  const roughness = useLoader(
-    TextureLoader,
-    `/textures/${type()}/roughness.jpg`
-  );
-
   return (
-    // @ts-ignore
-    <mesh castShadow ref={ref}>
-      <boxGeometry args={[1, 1, 1]} />
-      {[...Array(6)].map((_, i) => (
+    <mesh
+      castShadow
+      // @ts-ignore
+      ref={ref}
+      onPointerMove={({ stopPropagation, faceIndex }) => {
+        stopPropagation();
+        // console.log(faceIndex / 2);
+        if (faceIndex) setHover(Math.floor(faceIndex / 2));
+      }}
+      onPointerOut={() => setHover(undefined)}
+      onClick={handleCubeClick}
+    >
+      {CUBE_FACES.map((_, i) => (
         <meshStandardMaterial
           key={i}
           map={color}
           aoMap={ambient}
           normalMap={normal}
           roughnessMap={roughness}
+          color={hover === i ? 'blue' : 'white'}
         />
       ))}
+      <boxBufferGeometry attach="geometry" />
     </mesh>
   );
 };
 
 export default Cube;
-
-type Props = {
-  cube: CUBE;
-};
