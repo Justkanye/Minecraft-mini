@@ -39,7 +39,7 @@ const Main = (props: IMainProps) => (
             <li className="mr-6">
               <a
                 className="border-none text-gray-700 hover:text-gray-900"
-                href="https://github.com/ixartz/Next-js-Boilerplate"
+                href="https://github.com/justkanye/Minecraft-mini"
               >
                 GitHub
               </a>
@@ -55,7 +55,8 @@ const Main = (props: IMainProps) => (
         <span role="img" aria-label="Love">
           ♥
         </span>{' '}
-        by <a href="https://creativedesignsguru.com">CreativeDesignsGuru</a>
+        by{' '}
+        <a href="https://adekanye-timilehin-portfolio.vercel.app">Justkanye</a>
       </div>
     </div>
   </div>

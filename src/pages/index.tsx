@@ -1,7 +1,14 @@
+import { Meta } from '@/layouts/Meta';
+
 import Scene from '../components/Scene';
 
 const Index = () => {
-  return <Scene />;
+  return (
+    <>
+      <Meta />
+      <Scene />
+    </>
+  );
 };
 
 export default Index;

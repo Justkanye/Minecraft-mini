@@ -5,12 +5,16 @@ import { NextSeo } from 'next-seo';
 import AppConfig from '../utils/AppConfig';
 
 type IMetaProps = {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   canonical?: string;
 };
 
-const Meta = (props: IMetaProps) => {
+const Meta = ({
+  title = AppConfig.title,
+  description = AppConfig.description,
+  canonical,
+}: IMetaProps) => {
   const router = useRouter();
 
   return (
@@ -48,13 +52,13 @@ const Meta = (props: IMetaProps) => {
         />
       </Head>
       <NextSeo
-        title={props.title}
-        description={props.description}
-        canonical={props.canonical}
+        title={title}
+        description={description}
+        canonical={canonical}
         openGraph={{
-          title: props.title,
-          description: props.description,
-          url: props.canonical,
+          title,
+          description,
+          url: canonical,
           locale: AppConfig.locale,
           site_name: AppConfig.site_name,
         }}
