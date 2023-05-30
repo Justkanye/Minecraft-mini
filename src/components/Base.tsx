@@ -4,11 +4,15 @@ import { useLoader } from '@react-three/fiber';
 import type { FC } from 'react';
 import { RepeatWrapping, TextureLoader } from 'three';
 
+import { useStore } from '@/hooks';
+
 const Ground: FC<Props> = ({ position }) => {
   const [ref] = usePlane(() => ({
     rotation: [-Math.PI / 2, 0, 0],
     position,
   }));
+
+  const addCube = useStore((s) => s.addCube);
 
   const color = useLoader(TextureLoader, '/textures/grass/color.jpg');
   color.wrapS = RepeatWrapping;
@@ -34,8 +38,17 @@ const Ground: FC<Props> = ({ position }) => {
   roughness.repeat.set(35, 35);
 
   return (
-    // @ts-ignore
-    <mesh receiveShadow ref={ref}>
+    <mesh
+      receiveShadow
+      // @ts-ignore
+      ref={ref}
+      onClick={({ stopPropagation, point }) => {
+        stopPropagation();
+        // eslint-disable-next-line unused-imports/no-unused-vars
+        const [x, y, z] = Object.values(point).map((coord) => Math.ceil(coord));
+        if (typeof x === 'number' && typeof z === 'number') addCube(x, 1, z);
+      }}
+    >
       <planeBufferGeometry args={[100, 100]} attach="geometry" />
       <meshStandardMaterial
         map={color}
